@@ -1,0 +1,103 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
+
+    <script type="text/javascript" src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/font-awesome.css">
+
+
+    <script type="text/javascript" src="~/Scripts/json2yaml.js"></script>
+    <title>GenerateYaml</title>
+</head>
+<body>
+    <textarea name="yaml" id="yaml" rows="20" class="lined" style="width:50%; resize:both; z-index: auto; line-height: normal; font-size: 13.3333px; background: transparent !important;" data-gramm="true" data-txt_gramm_id="1" data-gramm_id="1" spellcheck="false" data-gramm_editor="true"></textarea>
+    <button>Download</button>
+    <hr />
+    <br />
+    <br />
+    @using (Html.BeginForm())
+    {
+    <p>
+        Title: @Html.TextBox("json1") <br />
+        Title: @Html.TextBox("json2") <br />
+        Title: @Html.TextBox("json3") <br />
+        Title: @Html.TextBox("json4") <br />
+        <input type="submit" value="Filter" />
+    </p>
+    }
+    <script>
+
+        function readTextFile(file, callback) {
+            var rawFile = new XMLHttpRequest();
+            rawFile.overrideMimeType("application/json");
+            rawFile.open("GET", file, true);
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4 && rawFile.status == "200") {
+                    callback(rawFile.responseText);
+                }
+            }
+            rawFile.send(null);
+
+        }
+
+        readTextFile("/Scripts/testmodules.json", function (text) {
+            var data = JSON.parse(text);
+            var yaml = json2yaml(data);
+
+            $('#yaml').append(yaml);
+
+            $(document).ready(function () {
+                var textarea = $('#yaml');
+                textarea.val(textarea.val().replace(/\\x20/g, " "));
+                textarea.val(textarea.val().replace(/\\x2C/g, ", "));
+                textarea.val(textarea.val().replace(/\\x3A/g, ":"));
+                textarea.val(textarea.val().replace(/\\x5C/g, "\\"));
+                textarea.val(textarea.val().replace(/"/g, " "));
+
+            });
+            
+        });
+
+        $("button").click(function () {
+            // create `a` element
+            $("<a />", {
+                // if supported , set name of file
+                download: $.now() + ".yaml",
+                // set `href` to `objectURL` of `Blob` of `textarea` value
+                href: URL.createObjectURL(
+                    new Blob([$("textarea").val()], {
+                        type: "text/plain"
+                    }))
+            })
+                // append `a` element to `body`
+                // call `click` on `DOM` element `a`
+                .appendTo("body")[0].click();
+            // remove appended `a` element after "Save File" dialog,
+            // `window` regains `focus`
+            $(window).one("focus", function () {
+                $("a").last().remove()
+            })
+        })
+
+
+
+        readTextFile("/Scripts/testmodules.json", function (text) {
+            var data = JSON.parse(text);
+            data[0].win_domain_user.name = "mouaad";
+            alert(data[0].win_domain_user.name);
+
+        });
+    </script>
+</body>
+</html >

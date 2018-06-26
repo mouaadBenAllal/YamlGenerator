@@ -1,0 +1,74 @@
+﻿@{
+   Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <script type="text/javascript" src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro.min.css">
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-colors.min.css">
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-rtl.min.css">
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-icons.min.css">
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script src="~/Scripts/projectscripts/tabletojson.js"></script>
+    <script src="~/Scripts/json2yaml.js"></script>
+    <title>YamlGenerator</title>
+</head>
+<body>
+    <div class="space" style="height:10px"></div>
+    <div class="row flex-align-start" style="">
+        <div class="cell">
+            <div>
+                <ul class="sidenav-counter sidenav-counter-expand-fs h-auto" style="width:100%">
+                    <li class="active">
+                        <a href="#">
+                            <span class="mif-apps icon"></span>
+                            <span class="title">All modules </span>
+                            <span class="counter">@ViewBag.ModuleList.Count</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="mif-info icon"></span>
+                            <span class="title">Info</span>
+                            <span class="counter"></span>
+                        </a>
+                    </li>
+                </ul>
+                <span class="title">
+                    <select id="select-modules" data-role="select">
+                        <option selected disabled>Select a module..</option>
+                        @foreach (var module in ViewBag.ModuleList)
+                        {
+                        <option>@module.Value</option>
+                        }
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="cell">
+            <div class="description"></div><br />
+            <div id="formgenerated">
+            </div>
+        </div>
+        <div class="cell">
+            <div hidden id="generatedYamlTextField">
+                <h1>Generated YAML</h1>
+                <input class="mt-1" type="text" required id="yamlfilename" placeholder="Add filename here..">
+                <br>
+                <textarea name="yaml" id="yamltextfield" rows="20" class="lined" style="z-index: auto; position: relative; height:750px; line-height: normal; font-size: 13.3333px; transition: none; background: transparent !important; overflow-y: scroll !important;" data-gramm="true" data-txt_gramm_id="1" data-gramm_id="1" spellcheck="false" data-gramm_editor="true"></textarea>
+                <br><button type="button" id="downloadyaml" onclick="downloadyaml()" class="button primary" data-role="ripple"><span class="mif-download"> </span>Download YAML</button>
+            </div>
+        </div>
+    </div>
+    <div id="moduleoptions"></div>
+    <div id="yaml"></div>
+    <script src="~/Scripts/projectscripts/yamlgen.js"></script>
+</body>
+</html>

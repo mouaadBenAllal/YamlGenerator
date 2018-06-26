@@ -1,0 +1,68 @@
+﻿<!-- ko with: home 22222 -->
+<script type="text/javascript" src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+<link rel="stylesheet" href="~/Content/css/bootswatch.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/projectscripts/tabletojson.js"></script>
+<script src="~/Scripts/projectscripts/json2yaml.js"></script>
+
+<body style="background:#374046">
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div width="100%" id="moduleform"></div>
+                <button id="generatebtn" onclick="generateYAML()" class="btn btn-primary" hidden>Create YAML</button>
+                <br />
+                <br />
+                <div id="selectarea">
+                    <select style="width: 100%; color:#ff9800 !important;" id="selectbox0" class="form-control" onchange="generateform(this)">
+                        <option id="firstoption" selected="selected" disabled="disabled">Select module..</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div hidden id="generatedYamlTextField">
+                    <h1 style="color:#ff9800;">Generated YAML</h1>
+                    <input class="form-control" style="color:#ff9800" placeholder="Yaml filename" required id="yamlfilename">
+                    <br>
+                    <textarea name="yaml" id="yamltextfield" rows="20" class="lined" style="width: 707px; color:#ff9800; resize: none; z-index: auto; position: relative; line-height: normal; font-size: 13.3333px; transition: none; background: transparent !important;" wrap="off" data-gramm="true" data-txt_gramm_id="1" data-gramm_id="1" spellcheck="false" data-gramm_editor="true">---&#13;</textarea>
+                    <br><button type="button" id="downloadyaml" onclick="downloadyaml()" class="btn btn-warning" style="
+    background: #ff9800;
+    border-radius: 0px;
+">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="~/Scripts/projectscripts/warning.js"></script>
+<script>
+    WarningBeforePageLeave();
+</script>
+
+<script src='~/Scripts/projectscripts/download-yaml-file.js'></script>
+<script src='~/Scripts/projectscripts/modules-form-generator.js'></script>
+<script src="~/Scripts/projectscripts/yaml-generator.js"></script>
+<style>
+    option {
+        background-color: white;
+    }
+</style>
+@*<script src="~/Scripts/projectscripts/Webscraper.js"></script>*@
+
+<!-- /ko -->
